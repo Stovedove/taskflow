@@ -3,6 +3,7 @@ package com.rlalejandro.taskflow.project;
 import org.springframework.stereotype.Service;
 import com.rlalejandro.taskflow.project.dto.ProjectResponse;
 import com.rlalejandro.taskflow.project.dto.CreateProjectRequest;
+import com.rlalejandro.taskflow.project.dto.UpdateProjectRequest;
 import lombok.RequiredArgsConstructor;
 import java.util.List;
 import java.util.ArrayList;
@@ -37,8 +38,22 @@ public class ProjectService {
     }
 
     public ProjectResponse findById(Long id) {
-        Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found"));
+        Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found")); //findById retorna un optional
         return toResponse(project);
+    }
+
+    public ProjectResponse update(Long id, UpdateProjectRequest request) {
+        Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found"));
+
+        project.setName(request.name());
+        project.setDescription(request.description());
+
+        return toResponse(projectRepository.save(project));
+    }
+
+    public void delete(Long id) {
+        Project project = projectRepository.findById(id).orElseThrow(() -> new RuntimeException("Project not found"));
+        projectRepository.delete(project);
     }
 
     private ProjectResponse toResponse(Project project) { 
