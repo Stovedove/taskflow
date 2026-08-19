@@ -28,7 +28,7 @@ public class ProjectService {
     }
 
     public List<ProjectResponse> findAll() { 
-        List<Project> projects = projectRepository.findAll(); // se obtiene la lista de proyectos
+        List<Project> projects = projectRepository.findAll(); // se obtiene la lista de proyectos, no se instancia el objeto Project (ya existen)
         
         List<ProjectResponse> responses = new ArrayList<>();
         for (Project project : projects) {
