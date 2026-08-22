@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 
 import com.rlalejandro.taskflow.project.dto.CreateProjectRequest;
 import com.rlalejandro.taskflow.project.dto.ProjectResponse;
+import com.rlalejandro.taskflow.project.dto.UpdateProjectRequest;
 
 import lombok.RequiredArgsConstructor;
 
@@ -42,6 +45,18 @@ public class ProjectController {
     public ResponseEntity<ProjectResponse> findById(@PathVariable Long id) { // saca el valor directo de la url
         ProjectResponse body = projectService.findById(id);
         return ResponseEntity.ok(body);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ProjectResponse> update(@PathVariable Long id, @RequestBody UpdateProjectRequest request) {
+        ProjectResponse body = projectService.update(id, request);
+        return ResponseEntity.ok(body);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
+        projectService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 
 }
