@@ -39,7 +39,7 @@ public class ProjectController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProjectResponse> findById(@PathVariable Long id) {
+    public ResponseEntity<ProjectResponse> findById(@PathVariable Long id) { // saca el valor directo de la url
         ProjectResponse body = projectService.findById(id);
         return ResponseEntity.ok(body);
     }
